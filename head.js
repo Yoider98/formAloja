@@ -222,6 +222,55 @@ document
     XLSX.writeFile(workbook, "alojamiento.xlsx");
 });
 
+// Botón para guardar el PDF
+document.getElementById("savePdfButton").addEventListener("click", function () {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const guestCount = document.getElementById("guestCount").value;
+  const nights = calculateNights(); // Asegúrate de que las noches estén calculadas
+
+  if (nights === 0) {
+      alert("Por favor selecciona fechas válidas antes de guardar el PDF.");
+      return;
+  }
+
+  let pdfContent = "Informe de Huéspedes\n\n";
+  pdfContent += "Total de Huéspedes: " + guestCount + "\n";
+  pdfContent += "Noches: " + nights + "\n\n";
+  pdfContent += "Detalles de Huéspedes:\n\n";
+
+  for (let i = 1; i <= guestCount; i++) {
+      const docType = document.getElementById(`docType${i}`).value;
+      const docNumber = document.getElementById(`docNumber${i}`).value;
+      const firstName = document.getElementById(`firstName${i}`).value;
+      const lastName = document.getElementById(`lastName${i}`).value;
+      const birthDate = document.getElementById(`birthDate${i}`).value;
+      const age = document.getElementById(`age${i}`).value;
+
+      pdfContent += `Huésped ${i}:\n`;
+      pdfContent += `Tipo de Documento: ${docType}\n`;
+      pdfContent += `Número de Documento: ${docNumber}\n`;
+      pdfContent += `Nombre: ${firstName}\n`;
+      pdfContent += `Apellido: ${lastName}\n`;
+      pdfContent += `Fecha de Nacimiento: ${birthDate}\n`;
+      pdfContent += `Edad: ${age}\n\n`;
+  }
+
+  // Añadir información de precios
+  const accommodationTotal = total; // Reutiliza el total calculado
+  pdfContent += `Costo Total Alojamiento: $${accommodationTotal}\n`;
+
+  // Añadir planes de alimentación
+  pdfContent += "Plan de Alimentación:\n";
+  mealPlans.forEach((mealPlan, index) => {
+      pdfContent += `Día ${index + 1}: ${mealPlan === 0 ? "Solo alojamiento" : mealPlan === 50 ? "Desayuno" : mealPlan === 100 ? "Desayuno y Cena" : "Desayuno, Almuerzo y Cena"}\n`;
+  });
+
+  doc.text(pdfContent, 10, 10);
+  doc.save("informe_huespedes.pdf");
+});
+
 // Cerrar el modal
 document.querySelector(".close").addEventListener("click", function () {
   document.getElementById("modal").style.display = "none";
