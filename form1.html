@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <title>Solicitud de Reservación para Grupos Taybo Beach</title>
+</head>
+<body>
+    <div class="container">
+        <img src="./assets/cropped-logo-1.png" alt="">
+        <h1>SOLICITUD DE RESERVACIÓN PARA GRUPOS TAYBO BEACH</h1>
+       
+        <form id="solicitudForm">
+            <label for="agenciaN">Nombre de agencia:</label>
+            <input type="text" id="agenciaN" required />
+
+            <label for="email">Correo:</label>
+            <input type="email" id="email" required />
+
+            <label for="telefono">Teléfono de contacto:</label>
+            <input type="number" id="telefono" required />
+
+            <label for="titular">Titular de grupo:</label>
+            <input type="text" id="titular" required />
+
+            <label for="cantidadPax">Cantidad de Pax. total:</label>
+            <input type="number" id="cantidadPax" required />
+
+            <h3>Si en su grupo hay menores de edad...</h3>
+            <h4>Tenga en cuenta las siguientes políticas:</h4>
+            <ul>
+                <li><strong>INFANTES DE 0 HASTA 3 AÑOS</strong> <br>
+                    Menores de 3 años pueden hospedarse gratis, compartiendo cama con sus padres, sin incluir alimentación.
+                </li>
+                <br>
+                <li><strong>NIÑOS DE 4 HASTA 8 AÑOS</strong> <br>
+                    Menores de 8 años se hospedan con tarifa de niños, incluye alimentación.
+                </li>
+                <br>
+                <li><strong>NIÑOS MAYORES DE 9 AÑOS</strong> <br>
+                    Niños mayores de 9 años se les cobrará tarifa de adulto.
+                </li>
+            </ul>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>INFANTES DE 0 HASTA 3 AÑOS</th>
+                        <th>NIÑOS DE 4 HASTA 8 AÑOS</th>
+                        <th>NIÑOS MAYORES DE 9 AÑOS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="number" id="inf03" placeholder="0 HASTA 3 AÑOS" />
+                        </td>
+                        <td>
+                            <input type="number" id="nino48" placeholder="4 HASTA 8 AÑOS" />
+                        </td>
+                        <td>
+                            <input type="number" id="nino9+" placeholder="MAYORES DE 9 AÑOS" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <div class="form-row centered-row">
+                <div class="form-group">
+                    <label for="checkin">Fecha de CHECK-IN:</label>
+                    <input type="date" id="checkin" required />
+                </div>
+                <div style="margin: 10px"></div>
+                <div class="form-group">
+                    <label for="checkout">Fecha de CHECK-OUT:</label>
+                    <input type="date" id="checkout" required />
+                </div>
+            </div>
+              <hr>
+            <label for="cantNoche">Cantidad de noches:</label>
+            <input type="number" id="cantNoche" required readonly />
+
+            <button type="button" id="generatetypePlanFormButton">
+                Seleccionar tipo de plan
+            </button>
+
+            <div id="typePlanFormContainer"></div>
+            <hr>
+            <h3 style="text-align: center;">Acomodación</h3>
+            <h4>Acontinuación ingrese la cantidad de habitaciones.</h4>
+            <h4> Tenga en cuenta que las opciones de habitaciones son las siguientes:</h4>
+            <ul>
+                <li><strong>HAB DOBLE 1</strong> <br>
+                    Dos camas sencillas.
+                </li>
+                <br>
+                <li><strong>HAB DOBLE 2</strong>  <br>
+                    Una cama matrimonial.
+                </li>
+                <br>
+                <li><strong>HAB TRIPLE</strong>  <br>
+                    Una cama matrimonial y una cama sencilla.
+                </li>
+                <br>
+                <li><strong>HAB CUÁDRUPLE</strong>  <br>
+                    Una cama matrimonial y un camarote (litera).
+                </li>
+            </ul>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>HAB DOBLE 1</th>
+                        <th>HAB DOBLE 2</th>
+                        <th>HAB TRIPLE </th>
+                        <th>HAB CUÁDRUPLE </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select id="habDobSen">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="habDobMat">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="habTri">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="habCua">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr>
+            <label for="soliEspecial">Solicitudes especiales:</label>
+            <textarea id="soliEspecial" rows="9" cols="80" style="width: 100%; max-width: 600px; resize: vertical;"></textarea>
+
+            <p>Ver <a href="./assets/Políticas de Reservas para Grupos.pdf">Políticas de Reservas para Grupos</a></p>
+            <input type="checkbox" id="politica" />
+            <label for="politica">He leído y acepto las políticas de reserva</label>
+            <br>
+            <button type="submit" id="submitButton" disabled>Enviar Solicitud</button>
+            <button type="button" id="generateExcelButton" disabled>Generar Excel</button>
+        </form>
+        
+    </div>
+
+    <script>
+        // Función para habilitar/deshabilitar los botones
+        function toggleButtons() {
+            const isChecked = document.getElementById("politica").checked;
+            document.getElementById("submitButton").disabled = !isChecked;
+            document.getElementById("generateExcelButton").disabled = !isChecked;
+        }
+
+        // Agregar evento de cambio al checkbox
+        document.getElementById("politica").addEventListener("change", toggleButtons);
+        document.getElementById("checkout").addEventListener("change", function () {
+            const checkinDate = document.getElementById("checkin").value;
+            const checkoutDate = this.value;
+            const nightCountInput = document.getElementById("cantNoche");
+
+            if (checkinDate && checkoutDate) {
+                const checkin = new Date(checkinDate);
+                const checkout = new Date(checkoutDate);
+
+                const differenceInTime = checkout - checkin;
+                const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+
+                if (differenceInDays > 0) {
+                    nightCountInput.value = differenceInDays;
+                } else {
+                    nightCountInput.value = ""; 
+                }
+            } else {
+                nightCountInput.value = ""; 
+            }
+        });
+
+        document.getElementById("generatetypePlanFormButton").addEventListener("click", function () {
+            const nightCount = document.getElementById("cantNoche").value;
+
+            if (nightCount <= 0 || isNaN(nightCount)) {
+                alert("Por favor, ingresa una cantidad válida de noches.");
+                return;
+            }
+
+            const guestFormContainer = document.getElementById("typePlanFormContainer");
+            guestFormContainer.innerHTML = ""; 
+
+            for (let i = 1; i <= nightCount; i++) {
+                const nightPlanHTML = `
+                    <h3>Noche ${i}</h3>
+                    <div class="radio-group">
+                        <div>
+                            <input type="radio" id="planType${i}_soloAlojamiento" name="planType${i}" value="soloAlojamiento" required>
+                            <label for="planType${i}_soloAlojamiento">Solo Alojamiento</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="planType${i}_alojamientoDesayuno" name="planType${i}" value="alojamientoDesayuno">
+                            <label for="planType${i}_alojamientoDesayuno">Alojamiento y Desayuno</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="planType${i}_desayunoCena" name="planType${i}" value="desayunoCena">
+                            <label for="planType${i}_desayunoCena">Desayuno y Cena</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="planType${i}_desayunoAlmuerzoCena" name="planType${i}" value="desayunoAlmuerzoCena">
+                            <label for="planType${i}_desayunoAlmuerzoCena">Desayuno, Almuerzo y Cena</label>
+                        </div>
+                    </div>
+                `;
+                guestFormContainer.innerHTML += nightPlanHTML;
+            }
+        });
+
+        // Función para mostrar los datos en la consola
+        document.getElementById("submitButton").addEventListener("click", function (event) {
+            event.preventDefault(); // Prevenir el comportamiento de envío del formulario
+
+            const agenciaN = document.getElementById("agenciaN").value;
+            const email = document.getElementById("email").value;
+            const telefono = document.getElementById("telefono").value;
+            const titular = document.getElementById("titular").value;
+            const cantidadPax = document.getElementById("cantidadPax").value;
+            const checkin = document.getElementById("checkin").value;
+            const checkout = document.getElementById("checkout").value;
+            const cantNoche = document.getElementById("cantNoche").value;
+
+            // Obtener datos de las habitaciones
+            const habDobSen = document.getElementById("habDobSen").value;
+            const habDobMat = document.getElementById("habDobMat").value;
+            const habTri = document.getElementById("habTri").value;
+            const habCua = document.getElementById("habCua").value;
+
+            // Obtener datos de menores
+            const inf03 = document.getElementById("inf03").value;
+            const nino48 = document.getElementById("nino48").value;
+            const nino9 = document.getElementById("nino9+").value;
+
+            // Obtener solicitudes especiales
+            const soliEspecial = document.getElementById("soliEspecial").value;
+
+            // Mostrar los datos en la consola
+            console.log("Datos de la Solicitud:");
+            console.log(`Nombre de Agencia: ${agenciaN}`);
+            console.log(`Correo: ${email}`);
+            console.log(`Teléfono: ${telefono}`);
+            console.log(`Titular del Grupo: ${titular}`);
+            console.log(`Cantidad de Pax. Total: ${cantidadPax}`);
+            console.log(`Fecha de CHECK-IN: ${checkin}`);
+            console.log(`Fecha de CHECK-OUT: ${checkout}`);
+            console.log(`Cantidad de Noches: ${cantNoche}`);
+            console.log(`Habitaciones Dobles (2 camas): ${habDobSen}`);
+            console.log(`Habitaciones Dobles (1 cama): ${habDobMat}`);
+            console.log(`Habitaciones Triples: ${habTri}`);
+            console.log(`Habitaciones Cuádruples: ${habCua}`);
+            console.log(`Infantes (0-3 años): ${inf03}`);
+            console.log(`Niños (4-8 años): ${nino48}`);
+            console.log(`Niños (9 años o más): ${nino9}`);
+            console.log(`Solicitudes Especiales: ${soliEspecial}`);
+
+            // Aquí puedes agregar la funcionalidad para generar el PDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Escribir datos en el PDF
+            doc.text(`Nombre de Agencia: ${agenciaN}`, 10, 10);
+            doc.text(`Correo: ${email}`, 10, 20);
+            doc.text(`Teléfono: ${telefono}`, 10, 30);
+            doc.text(`Titular del Grupo: ${titular}`, 10, 40);
+            doc.text(`Cantidad de Pax. Total: ${cantidadPax}`, 10, 50);
+            doc.text(`Fecha de CHECK-IN: ${checkin}`, 10, 60);
+            doc.text(`Fecha de CHECK-OUT: ${checkout}`, 10, 70);
+            doc.text(`Cantidad de Noches: ${cantNoche}`, 10, 80);
+            doc.text(`Habitaciones Dobles (2 camas): ${habDobSen}`, 10, 90);
+            doc.text(`Habitaciones Dobles (1 cama): ${habDobMat}`, 10, 100);
+            doc.text(`Habitaciones Triples: ${habTri}`, 10, 110);
+            doc.text(`Habitaciones Cuádruples: ${habCua}`, 10, 120);
+            doc.text(`Infantes (0-3 años): ${inf03}`, 10, 130);
+            doc.text(`Niños (4-8 años): ${nino48}`, 10, 140);
+            doc.text(`Niños (9 años o más): ${nino9}`, 10, 150);
+            doc.text(`Solicitudes Especiales: ${soliEspecial}`, 10, 160);
+
+            // Generar el PDF
+            doc.save("Solicitud_de_Reservacion.pdf");
+        });
+
+        document.getElementById("generateExcelButton").addEventListener("click", function () {
+            const workbook = XLSX.utils.book_new();
+            const worksheetData = [
+                ["Nombre de agencia", document.getElementById("agenciaN").value],
+                ["Correo", document.getElementById("email").value],
+                ["Teléfono de contacto", document.getElementById("telefono").value],
+                ["Titular de grupo", document.getElementById("titular").value],
+                ["Cantidad de Pax. total", document.getElementById("cantidadPax").value],
+                ["Infantes (0 a 3 años)", document.getElementById("inf03").value],
+                ["Niños (4 a 8 años)", document.getElementById("nino48").value],
+                ["Niños (mayores de 9 años)", document.getElementById("nino9+").value],
+                ["Fecha de CHECK-IN", document.getElementById("checkin").value],
+                ["Fecha de CHECK-OUT", document.getElementById("checkout").value],
+                ["Cantidad de noches", document.getElementById("cantNoche").value],
+                ["Solicitudes especiales", document.getElementById("soliEspecial").value]
+            ];
+            const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Reservación");
+            XLSX.writeFile(workbook, "Solicitud_Reservación.xlsx");
+        });
+
+        // Aquí puedes agregar la lógica para enviar la solicitud por correo
+        document.getElementById("submitButton").addEventListener("click", function () {
+            alert("Solicitud enviada (lógica de envío no implementada).");
+        });
+    </script>
+</body>
+</html>

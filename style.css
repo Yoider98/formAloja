@@ -24,7 +24,7 @@ label {
 }
 
 input, select {
-    width: 100%;
+    width: 96%;
     padding: 10px;
     margin: 5px 0 20px;
     border: 1px solid #ccc;
@@ -85,4 +85,119 @@ button:hover {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+ .radio-group {
+    display: flex;
+    flex-direction: row; /* Alineación horizontal */
+    gap: 10px; /* Espacio entre los botones */
+    margin-bottom: 10px; /* Espacio inferior entre grupos de botones */
+}
+.form-row {
+    display: flex; /* Utiliza Flexbox para alinear los elementos */
+    align-items: center; /* Centra verticalmente los elementos en el contenedor */
+}
+
+.form-group {
+    margin-right: 20px; /* Espaciado entre los grupos de formulario */
+}
+
+/* Opcional: Si quieres que el último elemento no tenga margen a la derecha */
+.form-group:last-child {
+    margin-right: 0;
+}
+
+/* Estilo general para la tabla */
+.styled-table {
+    width: 100%; /* Ajusta el ancho de la tabla */
+    border-collapse: collapse; /* Elimina el espacio entre celdas */
+    margin: 20px 0; /* Margen alrededor de la tabla */
+    font-size: 1em; /* Tamaño de fuente */
+    font-family: 'Arial', sans-serif; /* Fuente de la tabla */
+}
+
+/* Estilo para el encabezado de la tabla */
+.styled-table thead tr {
+    background-color: #007bff; /* Color de fondo del encabezado */
+    color: #ffffff; /* Color del texto del encabezado */
+    text-align: left; /* Alinear texto a la izquierda */
+}
+
+/* Estilo para las celdas de la tabla */
+.styled-table th, .styled-table td {
+    padding: 12px 15px; /* Espaciado interno */
+}
+
+/* Estilo para las filas del cuerpo de la tabla */
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd; /* Línea divisoria entre filas */
+}
+
+/* Cambiar color de fila al pasar el mouse */
+.styled-table tbody tr:hover {
+    background-color: #f2f2f2; /* Color de fondo al pasar el mouse */
+}
+
+/* Estilo para los selectores */
+.styled-table select {
+    width: 100%; /* Ajustar el ancho de los selectores */
+    padding: 8px; /* Espaciado interno de los selectores */
+    border: 1px solid #ccc; /* Borde de los selectores */
+    border-radius: 4px; /* Bordes redondeados */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+/* Estilo del modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Queda fijo en la pantalla */
+    z-index: 1; /* Asegura que esté encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Altura completa */
+    overflow: auto; /* Permite el desplazamiento si es necesario */
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro con transparencia */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Margen desde arriba y centrado */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ancho del modal */
+    max-width: 600px; /* Ancho máximo del modal */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  button {
+    margin-top: 15px;
+  }
+  .centered-row {
+    display: flex; /* Utiliza Flexbox para alinear elementos */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Alinea los elementos verticalmente */
+}
+
+.form-group {
+    margin: 0 10px; /* Espaciado entre grupos de formulario */
+}
+hr{
+    width: 50%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    opacity: 0.5;
 }

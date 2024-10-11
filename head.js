@@ -42,7 +42,7 @@ document
 
 // Calcular edad automáticamente
 document
-  .getElementById("guestFormContainer")
+  .getElementById("generatetypePlanFormButton")
   .addEventListener("change", function (e) {
     if (e.target && e.target.type === "date") {
       const guestId = e.target.id.replace("birthDate", "");
@@ -275,3 +275,19 @@ document.getElementById("savePdfButton").addEventListener("click", function () {
 document.querySelector(".close").addEventListener("click", function () {
   document.getElementById("modal").style.display = "none";
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
