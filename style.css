@@ -1,16 +1,17 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background: rgb(254,199,215);
+    background: linear-gradient(360deg, rgba(254,199,215,1) 13%, rgba(240,240,240,1) 100%);
     margin: 0;
     padding: 20px;
 }
 
-.container {
+.containers {
     background: white;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    max-width: 600px;
+    max-width: 800px;
     margin: auto;
 }
 
@@ -200,4 +201,32 @@ hr{
     margin-bottom: 15px;
 
     opacity: 0.5;
+}
+.alert-success {
+    color: #1a1a1a!important;
+    background-color: #f3e9ec !important;
+    border-color: #f3e9ec !important;
+}
+
+.botonAcomo{
+    background-color: #e0347c !important;
+    width: 5%; /* Ancho del botón */
+    height: auto; /* Alto del botón */
+    border: none; /* Sin borde */
+    border-radius: 50%; /* Hace que el botón sea circular */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    display: flex; /* Utiliza flexbox para centrar el contenido */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    transition: background-color 0.3s; /* Transición suave para el color de fondo */
+}
+.botonAcomo:hover{
+    background-color: #010408;
+}
+
+.unique-input {
+    width: 30% !important; /* Ancho del input */
+    text-align: center!important; /* Centra el texto dentro del input */
+    border: 1px solid #ddd!important; /* Bordes del input */
+    border-radius: 5px!important; /* Bordes redondeados para el input */
 }
