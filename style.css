@@ -203,7 +203,7 @@ hr{
     opacity: 0.5;
 }
 .alert-success {
-    color: #1a1a1a!important;
+    color: #000000!important;
     background-color: #f3e9ec !important;
     border-color: #f3e9ec !important;
 }
