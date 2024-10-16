@@ -230,3 +230,13 @@ hr{
     border: 1px solid #ddd!important; /* Bordes del input */
     border-radius: 5px!important; /* Bordes redondeados para el input */
 }
+  /* Estilos personalizados para el modal */
+  #pdfModal .modal-dialog {
+    margin: -9rem auto!important; /* Reducir el margen superior */
+  }
+
+  #pdfModal .modal-content {
+    width: 200vw!important; /* Reducir el margen superior */
+  }
+
+  

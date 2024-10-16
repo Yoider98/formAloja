@@ -4,54 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="./style.css">
+    <!-- <link rel="stylesheet" href="./style.css"> -->
     <title>Formulario de Alojamiento</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Formulario de Alojamiento</h1>
-        <form id="accommodationForm">
-            <label for="guestCount">Número de Huéspedes:</label>
-            <input type="number" id="guestCount" min="1" required>
-            <button type="button" id="generateGuestFormButton">Generar Formulario de Huéspedes</button>
+    <a href="tayboBeach.html" class="btn btn-primary">Ir a TayboBeach</a>
 
-            <div id="guestFormContainer"></div>
-            
-            <label for="accommodation">Acomodación:</label>
-            <select id="accommodation" required>
-                <option value="" disabled selected>Seleccione</option>
-                <option value="50">Habitación Doble</option>
-                <option value="100">Habitación Triple</option>
-                <option value="150">Habitación Cuádruple</option>
-            </select>
-
-            <label for="checkIn">Fecha de Entrada:</label>
-            <input type="date" id="checkIn" required>
-
-            <label for="checkOut">Fecha de Salida:</label>
-            <input type="date" id="checkOut" required>
-
-            <p id="nightsCount"></p> <!-- Aquí se mostrará la cantidad de noches -->
-
-            <button type="button" id="openModalButton">Agregar Plan de Alimentación</button>
-            <button type="button" id="saveExcelButton">Guardar en Excel</button>
-            <button id="savePdfButton">Guardar PDF</button>
-
-
-
-            <div id="totalCost"></div>
-        </form>
-
-        <!-- Modal -->
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Agregar Plan de Alimentación por Día</h2>
-                <div id="mealPlanContainer"></div>
-                <button id="addMealPlan">Agregar Plan de Alimentación</button>
-            </div>
-        </div>
-    </div>
+    <!-- Botón de redirección a Taybo Kay -->
+    <a href="TayboKai.html" class="btn btn-secondary">Ir a Taybo Kay</a>
 
     <!-- Incluye la librería SheetJS para exportar a Excel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>

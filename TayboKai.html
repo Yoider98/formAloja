@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Solicitud de Reservación para Grupos Taybo Beach</title>
+</head>
+<body>
+    <div class="containers">
+        <div class="row mb-4">
+            <div class="col text-center">
+                <img src="./assets/profile_hotelestaybo.jpeg" alt="Logo" width="180px">
+                <div style="margin-bottom: 18px;"></div>
+                <h3>SOLICITUD DE RESERVACIÓN PARA GRUPOS TAYBO KAY</h3>
+            </div>
+        </div>
+    
+        <form id="solicitudForm">
+            <div class="mb-3">
+                <label for="agenciaN" class="form-label">Nombre de agencia:</label>
+                <input type="text" id="agenciaN" class="form-control" required />
+            </div>
+    
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo:</label>
+                <input type="email" id="email" class="form-control" required />
+            </div>
+    
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono de contacto:</label>
+                <input type="number" id="telefono" class="form-control" required />
+            </div>
+    
+            <div class="mb-3">
+                <label for="titular" class="form-label">Titular de grupo:</label>
+                <input type="text" id="titular" class="form-control" required />
+            </div>
+    
+            <div class="mb-3">
+                <label for="cantidadPax" class="form-label">Cantidad de Pax. total:</label>
+                <input type="number" id="cantidadPax" class="form-control" required />
+            </div>
+         
+
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Tenga en cuenta las siguientes políticas si hay menores de edad</h4>
+                <div style="font-size: 13px; margin:15px">
+                    <p  class="mb-0"><strong>INFANTES DE 0 HASTA 3 AÑOS:</strong> Menores de 3 años pueden hospedarse gratis, compartiendo cama con sus padres, sin incluir alimentación.</p>
+                    <hr>
+                    <p  class="mb-0"><strong>NIÑOS DE 4 HASTA 8 AÑOS:</strong>Menores de 8 años se hospedan con tarifa de niños, incluye alimentación.</p>
+                    <hr>
+                    <p  class="mb-0"><strong>NIÑOS MAYORES DE 9 AÑOS:</strong> Niños mayores de 9 años se les cobrará tarifa de adulto.</p>
+
+                </div>
+              </div>
+    
+            <div class="mb-3">
+                <label for="cantHab" class="form-label">Cantidad de habitaciones:</label>
+                <input type="number" id="cantHab" class="form-control" required />
+            </div>
+    
+            <div id="typehabFormContainer"></div>
+
+    
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="checkin" class="form-label">Fecha de CHECK-IN:</label>
+                    <input type="date" id="checkin" class="form-control" required />
+                </div>
+                <div class="col">
+                    <label for="checkout" class="form-label">Fecha de CHECK-OUT:</label>
+                    <input type="date" id="checkout" class="form-control" required />
+                </div>
+            </div>
+    
+            <div class="mb-3">
+                <label for="cantNoche" class="form-label">Cantidad de noches:</label>
+                <input type="number" id="cantNoche" class="form-control" required readonly />
+            </div>
+
+            <label for="planAlimentacion" class="form-label">Plan de alimentación:</label>
+            <select id="planAlimentacion" class="form-select" required>
+                <option value="desayuno">Alojamiento y Desayuno</option>
+                <option value="desayunoCena">Desayuno y Cena</option>
+                <option value="esayunoAlmuerzoCena">Desayuno, Almuerzo y Cena</option>
+            </select>
+    
+  
+            <div class="mb-3">
+                <label for="soliEspecial" class="form-label">Solicitudes especiales:</label>
+                <textarea id="soliEspecial" class="form-control" rows="3"></textarea>
+            </div>
+ 
+  
+    
+            <div class="form-check mb-4">
+                <input type="checkbox" class="form-check-input" id="politica" />
+                <label class="form-check-label" for="politica">He leído y acepto las <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#pdfModal">políticas de reserva</a></label>
+            </div>
+             <!-- Modal -->
+  <div class="modal fade" id="pdfModal"  aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header" style="    justify-content: center !important;">
+          <h5  class="modal-title" id="pdfModalLabel">Politicas de reservas para grupos</h5>
+        </div>
+        <div class="modal-body">
+          <!-- Aquí cargamos el PDF usando iframe -->
+          <iframe id="pdfViewer" src="" width="100%" height="600px"></iframe>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+            <div class="d-grid gap-2">
+                <button type="submit" id="submitButton" style="background-color: #e0347c;" class="btn" disabled>Enviar Solicitud</button>
+                <!-- <button type="button" id="generateExcelButton"style="background-color: #ec7aa9;" class="btn" disabled>Generar Excel</button> -->
+            </div>
+        </form>
+    </div>
+    
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+    <script>
+        document.getElementById('pdfModal').addEventListener('show.bs.modal', function () {
+            var pdfViewer = document.getElementById('pdfViewer');
+            pdfViewer.src = "./assets/Políticas de Reservas para Grupos.pdf";  // Ruta al PDF que deseas mostrar
+        });
+        
+        document.getElementById("cantHab").addEventListener("input", function() {
+            const cantHab = parseInt(this.value);
+            const typePlanFormContainer = document.getElementById("typehabFormContainer");
+            
+            // Limpiar cualquier contenido previo
+            typePlanFormContainer.innerHTML = "";
+        
+            // Generar el formulario dinámico para cada habitación
+            for (let i = 0; i < cantHab; i++) {
+                const formGroup = document.createElement("div");
+                formGroup.classList.add("mb-4");
+                
+                formGroup.innerHTML = `
+                   <h4>Habitación ${i+1}</h4>
+       <div class="row g-2 justify-content-center"> <!-- Agregar justify-content-center -->
+    <div class="col-md-12">
+        <label for="acomodacionHab${i}" class="form-label">Tipo de acomodación:</label>
+        <select id="acomodacionHab${i}" class="form-select" required>
+            <option value="habDob">HAB DOBLE (1 cama matrimonial)</option>
+            <option value="habTri">HAB TRIPLE (1 cama matrimonial y 1 cama sencilla)</option>
+            <option value="habCua1">HAB CUÁDRUPLE 1 (1 cama matrimonial y 2  camas sencillas)</option>
+            <option value="habCua2">HAB CUÁDRUPLE 2 (2 camas matrimoniales )</option>
+            <option value="habQuin1">HAB QUINTUBLE 1 (2 camas matrimoniales y 1 sencilla)</option>
+            <option value="habQuin2">HAB QUINTUBLE 2 (1 cama matrimonial, 1 sencilla y 1 camarote)</option>
+        </select>
+    </div>
+    <div class="col-md-3 text-center"> <!-- Agregar text-center para centrar -->
+        <label for="adultosHab${i}" class="form-label">Adultos:</label>
+        <div class="input-group justify-content-center"> <!-- Agregar justify-content-center -->
+            <button class="btn botonAcomo" type="button" onclick="decrementValue('adultosHab${i}')">-</button>
+            <input type="number" id="adultosHab${i}" class="unique-input" value="0" required />
+            <button class="btn botonAcomo" type="button" onclick="incrementValue('adultosHab${i}')">+</button>
+        </div>
+    </div>
+    <div class="col-md-3 text-center"> <!-- Agregar text-center para centrar -->
+        <label for="nino9Hab${i}" class="form-label">Niños mayores (9+ años):</label>
+        <div class="input-group justify-content-center"> <!-- Agregar justify-content-center -->
+            <button class="btn botonAcomo" type="button" onclick="decrementValue('nino9Hab${i}')">-</button>
+            <input type="number" id="nino9Hab${i}" class="unique-input" value="0" />
+            <button class="btn botonAcomo" type="button" onclick="incrementValue('nino9Hab${i}')">+</button>
+        </div>
+    </div>
+    <div class="col-md-3 text-center"> <!-- Agregar text-center para centrar -->
+        <label for="nino48Hab${i}" class="form-label">Niños (4 a 8 años):</label>
+        <div class="input-group justify-content-center"> <!-- Agregar justify-content-center -->
+            <button class="btn botonAcomo" type="button" onclick="decrementValue('nino48Hab${i}')">-</button>
+            <input type="number" id="nino48Hab${i}" class="unique-input" value="0" />
+            <button class="btn botonAcomo" type="button" onclick="incrementValue('nino48Hab${i}')">+</button>
+        </div>
+    </div>
+    <div class="col-md-3 text-center"> <!-- Agregar text-center para centrar -->
+        <label for="inf03Hab${i}" class="form-label">Infantes (0 a 3 años):</label>
+        <div class="input-group justify-content-center"> <!-- Agregar justify-content-center -->
+            <button class="btn botonAcomo" type="button" onclick="decrementValue('inf03Hab${i}')">-</button>
+            <input type="number" id="inf03Hab${i}" class="unique-input" value="0" />
+            <button class="btn botonAcomo" type="button" onclick="incrementValue('inf03Hab${i}')">+</button>
+        </div>
+    </div>
+</div>
+
+                `;
+                
+                // Añadir el nuevo bloque de formulario para la habitación
+                typePlanFormContainer.appendChild(formGroup);
+            }
+        });
+        function incrementValue(id) {
+            const input = document.getElementById(id);
+            let value = parseInt(input.value);
+            input.value = value + 1;
+        }
+        
+        function decrementValue(id) {
+            const input = document.getElementById(id);
+            let value = parseInt(input.value);
+            if (value > 0) {
+                input.value = value - 1;
+            }
+        }
+        
+        
+// Obtener los elementos de fecha
+const checkinInput = document.getElementById('checkin');
+const checkoutInput = document.getElementById('checkout');
+
+// Función para validar las fechas
+function validateDates() {
+    const checkinDate = new Date(checkinInput.value);
+    const checkoutDate = new Date(checkoutInput.value);
+    
+    // Si ambos campos tienen valores
+    if (checkinInput.value && checkoutInput.value) {
+        // Validar que check-in no sea mayor que check-out
+        if (checkinDate > checkoutDate) {
+            alert("La fecha de CHECK-IN no puede ser mayor que la de CHECK-OUT");
+            checkinInput.value = "";  // Limpiar el campo de check-in
+        }
+        // Validar que check-out no sea menor que check-in
+        else if (checkoutDate < checkinDate) {
+            alert("La fecha de CHECK-OUT no puede ser menor que la de CHECK-IN");
+            checkoutInput.value = "";  // Limpiar el campo de check-out
+        }
+    }
+}
+
+// Escuchar los cambios en ambos campos de fecha
+checkinInput.addEventListener('change', validateDates);
+checkoutInput.addEventListener('change', validateDates);
+
+// Actualizar la fecha mínima de checkout al seleccionar una fecha de check-in
+checkinInput.addEventListener('change', function() {
+    checkoutInput.min = checkinInput.value;
+});
+
+// Actualizar la fecha máxima de check-in al seleccionar una fecha de check-out
+checkoutInput.addEventListener('change', function() {
+    checkinInput.max = checkoutInput.value;
+});
+
+
+        // Función para habilitar/deshabilitar los botones
+        function toggleButtons() {
+            const isChecked = document.getElementById("politica").checked;
+            document.getElementById("submitButton").disabled = !isChecked;
+            document.getElementById("generateExcelButton").disabled = !isChecked;
+        }
+
+        // Agregar evento de cambio al checkbox
+        document.getElementById("politica").addEventListener("change", toggleButtons);
+        document.getElementById("checkout").addEventListener("change", function () {
+            const checkinDate = document.getElementById("checkin").value;
+            const checkoutDate = this.value;
+            const nightCountInput = document.getElementById("cantNoche");
+
+            if (checkinDate && checkoutDate) {
+                const checkin = new Date(checkinDate);
+                const checkout = new Date(checkoutDate);
+
+                const differenceInTime = checkout - checkin;
+                const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+
+                if (differenceInDays > 0) {
+                    nightCountInput.value = differenceInDays;
+                } else {
+                    nightCountInput.value = ""; 
+                }
+            } else {
+                nightCountInput.value = ""; 
+            }
+        });
+
+// Agregar evento para enviar la solicitud
+document.getElementById("submitButton").addEventListener("click", function (event) {
+    event.preventDefault(); // Prevenir el comportamiento de envío del formulario
+
+    // Recolectar datos del formulario
+    const cantidadHabitaciones = parseInt(document.getElementById("cantHab").value);
+    const habitaciones = [];
+    const alimentacion = [];
+
+    for (let i = 0; i < cantidadHabitaciones; i++) {
+        
+        const acomodacionHabElement = document.getElementById(`acomodacionHab${i}`);
+        if (acomodacionHabElement) {
+            const acomodacionHab = acomodacionHabElement.value;
+            
+            const adultos = parseInt(document.getElementById(`adultosHab${i}`).value) || 0;
+            const infantes = parseInt(document.getElementById(`inf03Hab${i}`).value) || 0;
+            const ninos48 = parseInt(document.getElementById(`nino48Hab${i}`).value) || 0;
+            const ninos9 = parseInt(document.getElementById(`nino9Hab${i}`).value) || 0;
+
+            habitaciones.push({
+                acomodacion: acomodacionHab,
+                adultos: adultos,
+                infantes: infantes,
+                ninos48: ninos48,
+                ninos9: ninos9
+            });
+        } else {
+            console.warn(`El elemento con ID acomodacionHab${i} no existe.`);
+        }
+    }
+  
+    
+    
+    const formData = {
+        agenciaN: document.getElementById("agenciaN").value,
+        cantidadPax: document.getElementById("cantidadPax").value,
+        email: document.getElementById("email").value,
+        telefono: document.getElementById("telefono").value,
+        titular: document.getElementById("titular").value,
+        checkin: document.getElementById("checkin").value,
+        checkout: document.getElementById("checkout").value,
+        cantNoche: document.getElementById("cantNoche").value,
+        cantHab: cantidadHabitaciones,
+        soliEspecial: document.getElementById("soliEspecial").value,
+        habitaciones: habitaciones, // Aquí agregamos las habitaciones recolectadas
+        planAli: document.getElementById("planAlimentacion").value,
+    };
+    
+    // Ahora puedes usar formData para enviar la información
+    console.log(formData);
+        // Enviar datos a la API
+        fetch('http://localhost:3000/sendEmailKay', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Manejar la respuesta de la API
+            console.log('Éxito:', data);
+            alert('Solicitud enviada con éxito.');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error al enviar la solicitud.');
+        });
+    
+    
+
+});
+
+
+        document.getElementById("generateExcelButton").addEventListener("click", function () {
+            const workbook = XLSX.utils.book_new();
+            const worksheetData = [
+                ["Nombre de agencia", document.getElementById("agenciaN").value],
+                ["Correo", document.getElementById("email").value],
+                ["Teléfono de contacto", document.getElementById("telefono").value],
+                ["Titular de grupo", document.getElementById("titular").value],
+                ["Cantidad de Pax. total", document.getElementById("cantidadPax").value],
+                ["Cantidad de habitaciones", document.getElementById("cantHab").value],
+                ["Infantes (0 a 3 años)", document.getElementById("inf03").value],
+                ["Niños (4 a 8 años)", document.getElementById("nino48").value],
+                ["Niños (mayores de 9 años)", document.getElementById("nino9+").value],
+                ["Fecha de CHECK-IN", document.getElementById("checkin").value],
+                ["Fecha de CHECK-OUT", document.getElementById("checkout").value],
+                ["Cantidad de noches", document.getElementById("cantNoche").value],
+                ["Solicitudes especiales", document.getElementById("soliEspecial").value]
+            ];
+            const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Reservación");
+            XLSX.writeFile(workbook, "Solicitud_Reservación.xlsx");
+        });
+
+        // Aquí puedes agregar la lógica para enviar la solicitud por correo
+        document.getElementById("submitButton").addEventListener("click", function () {
+            alert("Solicitud enviada (lógica de envío no implementada).");
+        });
+    </script>
+</body>
+</html>

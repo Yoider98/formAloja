@@ -81,9 +81,13 @@
                 <label for="cantNoche" class="form-label">Cantidad de noches:</label>
                 <input type="number" id="cantNoche" class="form-control" required readonly />
             </div>
-    
-            <button type="button" id="generatetypePlanFormButton" style="background-color: #e0347c;" class="btn mb-4">Seleccionar tipo de plan</button>
-            <div id="typePlanFormContainer"></div>
+
+            <label for="planAlimentacion" class="form-label">Plan de alimentación:</label>
+            <select id="planAlimentacion" class="form-select" required>
+                <option value="desayuno">Alojamiento y Desayuno</option>
+                <option value="desayunoCena">Desayuno y Cena</option>
+                <option value="esayunoAlmuerzoCena">Desayuno, Almuerzo y Cena</option>
+            </select>
     
   
             <div class="mb-3">
@@ -98,12 +102,11 @@
                 <label class="form-check-label" for="politica">He leído y acepto las <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#pdfModal">políticas de reserva</a></label>
             </div>
              <!-- Modal -->
-  <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+  <div class="modal fade" id="pdfModal"  aria-labelledby="pdfModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="pdfModalLabel">Politicas de reservas paar grupos</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-header" style="    justify-content: center !important;">
+          <h5  class="modal-title" id="pdfModalLabel">Politicas de reservas para grupos</h5>
         </div>
         <div class="modal-body">
           <!-- Aquí cargamos el PDF usando iframe -->
@@ -283,38 +286,6 @@ checkoutInput.addEventListener('change', function() {
             }
         });
 
-        document.getElementById("generatetypePlanFormButton").addEventListener("click", function () {
-            const nightCount = document.getElementById("cantNoche").value;
-
-            if (nightCount <= 0 || isNaN(nightCount)) {
-                alert("Por favor, ingresa una cantidad válida de noches.");
-                return;
-            }
-
-            const guestFormContainer = document.getElementById("typePlanFormContainer");
-            guestFormContainer.innerHTML = ""; 
-
-            for (let i = 0; i < nightCount; i++) {
-                const nightPlanHTML = `
-                    <h3>Noche ${i+1}</h3>
-                    <div class="radio-group">
-                        <div>
-                            <input type="radio" id="planType${i}_alojamientoDesayuno" name="planType${i}" value="alojamientoDesayuno" required>
-                            <label for="planType${i}_alojamientoDesayuno">Alojamiento y Desayuno</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="planType${i}_desayunoCena" name="planType${i}" value="desayunoCena" required>
-                            <label for="planType${i}_desayunoCena">Desayuno y Cena</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="planType${i}_desayunoAlmuerzoCena" name="planType${i}" value="desayunoAlmuerzoCena" required>
-                            <label for="planType${i}_desayunoAlmuerzoCena">Desayuno, Almuerzo y Cena</label>
-                        </div>
-                    </div>
-                `;
-                guestFormContainer.innerHTML += nightPlanHTML;
-            }
-        });
 // Agregar evento para enviar la solicitud
 document.getElementById("submitButton").addEventListener("click", function (event) {
     event.preventDefault(); // Prevenir el comportamiento de envío del formulario
@@ -346,18 +317,7 @@ document.getElementById("submitButton").addEventListener("click", function (even
             console.warn(`El elemento con ID acomodacionHab${i} no existe.`);
         }
     }
-    const nightCount = document.getElementById("cantNoche").value;
-
-    for (let i = 0; i < nightCount; i++) {
-        const selectedPlanType = document.querySelector(`input[name="planType${i}"]:checked`);
-        
-        if (selectedPlanType) {
-            alimentacion.push(selectedPlanType.value);
-        } else {
-            console.warn(`No se seleccionó un tipo de alimentación para la noche ${i + 1}.`);
-            alimentacion.push('No especificado'); // O puedes manejarlo de otra forma
-        }
-    }
+  
     
     
     const formData = {
@@ -372,13 +332,13 @@ document.getElementById("submitButton").addEventListener("click", function (even
         cantHab: cantidadHabitaciones,
         soliEspecial: document.getElementById("soliEspecial").value,
         habitaciones: habitaciones, // Aquí agregamos las habitaciones recolectadas
-        planAli: alimentacion,
+        planAli: document.getElementById("planAlimentacion").value,
     };
     
     // Ahora puedes usar formData para enviar la información
     console.log(formData);
         // Enviar datos a la API
-        fetch('https://exuberant-cthrine-softmag-916fea57.koyeb.app/send-email', {
+        fetch('http://localhost:3000/sendEmailBeach', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
